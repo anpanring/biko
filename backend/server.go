@@ -9,7 +9,7 @@ import (
 )
 
 type Item struct {
-	ID    int    `json:"id"`
+	ID    string `json:"id"`
 	Name  string `json:"name"`
 	Link  string `json:"link"`
 	Image string `json:"image"`
@@ -18,7 +18,7 @@ type Item struct {
 func readData(gender string) []Item {
 	var items []Item
 
-	file, err := os.Open("../scraper/" + gender + "-products.csv")
+	file, err := os.Open(gender + "-products.csv")
 	if err != nil {
 		log.Fatal("Error opening CSV file:", err)
 	}
@@ -31,8 +31,8 @@ func readData(gender string) []Item {
 		log.Fatal("Error opening CSV file:", err)
 	}
 
-	for i, record := range records {
-		items = append(items, Item{ID: i, Name: record[0], Link: record[1], Image: record[2]})
+	for _, record := range records {
+		items = append(items, Item{ID: record[1], Name: record[0], Link: record[2], Image: record[3]})
 	}
 
 	return items
@@ -42,7 +42,7 @@ func mensHandler(w http.ResponseWriter, r *http.Request) {
 	items := readData("men")
 
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	if err := json.NewEncoder(w).Encode(items); err != nil {
 		http.Error(w, "Failed to encode JSON", http.StatusInternalServerError)
@@ -53,7 +53,7 @@ func womensHandler(w http.ResponseWriter, r *http.Request) {
 	items := readData("women")
 
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
 
 	if err := json.NewEncoder(w).Encode(items); err != nil {
 		http.Error(w, "Failed to encode JSON", http.StatusInternalServerError)
@@ -63,5 +63,6 @@ func womensHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/api/clothes/men", mensHandler)
 	http.HandleFunc("/api/clothes/women", womensHandler)
+	// log.Fatal("listening at port 8080...")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

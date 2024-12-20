@@ -8,6 +8,5 @@ export const load: PageLoad = async ({ params }) => {
 	return {
 		item: params.item,
         gender: params.gender
-		// info: data
 	};
 };

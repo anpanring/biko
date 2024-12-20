@@ -1,0 +1,15 @@
+* {
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	padding: 10px;
+}
+
+:root {
+	--grid-module: calc((100vw - 20px) / 24);
+	--grid-cols: repeat(24, calc((100vw - 20px) / 24));
+	--grid-rows: repeat(auto-fill, calc((100vw - 20px) / 24));
+	--grid-max: 24;
+}

@@ -1,5 +1,7 @@
 <script>
+	import { page } from '$app/stores';
 	import Nav from '../components/Nav.svelte';
+	import '../globals.css';
 </script>
 
 <head>
@@ -11,7 +13,9 @@
 <Nav />
 
 <main>
-	<slot />
+	{#key $page.url.pathname}
+		<slot />
+	{/key}
 </main>
 
 <style>

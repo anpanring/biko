@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -15,7 +16,7 @@
 		{#each data.items as item}
 			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<div class="item" onmouseenter={() => (current = item.image)}>
-				<a href="{data.slug}/{item.id}">
+				<a href="{base}/shop/{data.slug}/{item.id}">
 					<img src={item.image} alt={item.name} loading="lazy" />
 					<h1>{item.name}</h1>
 				</a>

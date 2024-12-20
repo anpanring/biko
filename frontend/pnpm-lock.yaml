@@ -23,6 +23,9 @@ importers:
       '@sveltejs/vite-plugin-svelte':
         specifier: ^5.0.0
         version: 5.0.1(svelte@5.8.1)(vite@6.0.3)
+      esbuild:
+        specifier: 0.24.0
+        version: 0.24.0
       eslint:
         specifier: ^9.7.0
         version: 9.16.0
